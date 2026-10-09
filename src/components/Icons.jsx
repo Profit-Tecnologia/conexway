@@ -1,4 +1,5 @@
-// Brand logo (symbol + "convexway" wordmark), from convexway.svg. viewBox 196.6x34: symbol occupies x 0–34.
+// Brand logo geometry (convexway-positivo.svg, 196.6x34): symbol at x 0–34, wordmark from x 42.7.
+// The dark (convexway-dark.svg) and text-only (convexway-texto.svg) files reuse it, offset.
 const MARK_ROUTES = "M6,26c-0.8,0-1.4-0.6-1.4-1.4s0.6-1.4,1.4-1.4c3,0,4.8-1.8,6.8-3.6c0.5-0.4,0.9-0.9,1.4-1.3H6c-0.8,0-1.4-0.6-1.4-1.4s0.6-1.4,1.4-1.4h8.2c-0.5-0.4-0.9-0.9-1.4-1.3c-2-1.9-3.8-3.6-6.8-3.6c-0.8,0-1.4-0.6-1.4-1.4S5.2,8,6,8c4.1,0,6.5,2.3,8.7,4.4c1.8,1.7,3.4,3.3,5.8,3.3H28c0.8,0,1.4,0.6,1.4,1.4s-0.6,1.4-1.4,1.4h-7.6c-2.3,0-3.9,1.5-5.8,3.3C12.5,23.7,10,26,6,26z";
 const WORDMARK = [
   "M42.7,18c0-5.4,3.6-8.9,8.5-8.9c3.4,0,6.4,1.7,7.6,5.1l-3.4,1.4c-0.7-2.1-2.4-3.1-4.3-3.1c-2.9,0-4.7,2.4-4.7,5.5c0,3.4,2.1,5.5,4.9,5.5c2.2,0,3.8-1.3,4.7-3.4l3.3,1.3c-1.2,3.5-4.2,5.5-8,5.5C46.4,26.8,42.7,23.4,42.7,18z",
@@ -12,17 +13,54 @@ const WORDMARK = [
   "M186.3,26.9l-6.5-17.3h3.9c1.5,4.1,3,8.1,4.3,13.5h0.5c1.3-5.3,2.8-9.4,4.3-13.5h3.8l-8.9,23.3H184L186.3,26.9z",
 ];
 
-// "xMinYMid slice" lets CSS narrow the box to a square to show only the symbol (see .logo in index.css).
-export function Logo({ height = 34, className = "" }) {
+const NAVY = "#13315C";
+const TEAL = "#2BC4A8";
+const WHITE = "#FFFFFF";
+const TILE = "M6.8,0h20.4C31,0,34,3,34,6.8v20.4c0,3.8-3,6.8-6.8,6.8H6.8C3,34,0,31,0,27.2V6.8C0,3,3,0,6.8,0z";
+
+function Mark({ tile, routes }) {
   return (
-    <svg className={"logo " + className} height={height} width={(height * 196.6) / 34} viewBox="0 0 196.6 34"
-      preserveAspectRatio="xMinYMid slice" role="img" aria-label="Conexway">
-      <path fill="#13315C" d="M6.8,0h20.4C31,0,34,3,34,6.8v20.4c0,3.8-3,6.8-6.8,6.8H6.8C3,34,0,31,0,27.2V6.8C0,3,3,0,6.8,0z" />
-      <path fill="#FFFFFF" d={MARK_ROUTES} />
-      <circle fill="#2BC4A8" cx="28.1" cy="17" r="2.2" />
-      {WORDMARK.map((d, i) => <path key={i} fill="#2BC4A8" d={d} />)}
-    </svg>
+    <>
+      <path fill={tile} d={TILE} />
+      <path fill={routes} d={MARK_ROUTES} />
+      <circle fill={TEAL} cx="28.1" cy="17" r="2.2" />
+    </>
   );
+}
+const Words = ({ fill }) => WORDMARK.map((d, i) => <path key={i} fill={fill} d={d} />);
+
+// variant: "light" (positivo), "dark" (white symbol on a navy plate) or "text" (white wordmark only).
+// `height` is the symbol height; markOnly drops the wordmark (compact header on mobile).
+export function Logo({ variant = "light", height = 34, markOnly = false, className = "" }) {
+  const svg = (w, h, viewBox, children) => (
+    <svg className={"logo " + className} width={w} height={h} viewBox={viewBox} role="img" aria-label="Convexway">{children}</svg>
+  );
+  if (variant === "text") {
+    return svg((height * 153.9) / 23.8, height, "42.7 9.1 153.9 23.8", <Words fill={WHITE} />);
+  }
+  if (variant === "dark") {
+    const w = markOnly ? 47 : 212.8;
+    const plate = markOnly
+      ? <rect width="47" height="47" rx="5.2" fill={NAVY} />
+      : <path fill={NAVY} d="M207.7,47H5.2C2.3,47,0,44.7,0,41.8V5.2C0,2.3,2.3,0,5.2,0h202.5c2.9,0,5.2,2.3,5.2,5.2v36.7C212.8,44.7,210.5,47,207.7,47z" />;
+    const s = height / 34;
+    return svg(w * s, 47 * s, `0 0 ${w} 47`, (
+      <>
+        {plate}
+        <g transform={markOnly ? "translate(6.5 6.5)" : "translate(8.1 6.5)"}>
+          <Mark tile={WHITE} routes={NAVY} />
+          {!markOnly && <Words fill={WHITE} />}
+        </g>
+      </>
+    ));
+  }
+  const w = markOnly ? 34 : 196.6;
+  return svg((height * w) / 34, height, `0 0 ${w} 34`, (
+    <>
+      <Mark tile={NAVY} routes={WHITE} />
+      {!markOnly && <Words fill={NAVY} />}
+    </>
+  ));
 }
 
 export function Chevron({ open }) {

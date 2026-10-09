@@ -82,7 +82,7 @@ export default function App() {
         {/* key resets form errors when the language changes, like the original */}
         <Contact key={lang} t={t} lang={lang} onSent={onSent} />
       </main>
-      <Footer t={t} />
+      <Footer t={t} theme={theme} />
 
       {showCookie && (
         <div className="cookie">

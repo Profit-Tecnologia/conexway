@@ -9,7 +9,8 @@ export default function Header({ t, lang, onLang, theme, onTheme }) {
     <header className="header">
       <div className="wrap header-bar">
         <a href="#home" className="brand">
-          <Logo className="logo-header" />
+          <Logo variant={theme} className="logo-full" />
+          <Logo variant={theme} markOnly className="logo-mark" />
         </a>
         <div className="spacer" />
         <nav className="nav">
