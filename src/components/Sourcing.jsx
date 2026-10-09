@@ -3,7 +3,7 @@ import SourcingMap from "./SourcingMap";
 export default function Sourcing({ t, lang }) {
   const m = t.markets;
   return (
-    <section id="markets" className="bg-white">
+    <section id="markets" className="markets">
       <div className="wrap section">
         <h2 className="h2">{m.title}</h2>
         <p className="lead markets-sub">{m.sub}</p>
