@@ -2,8 +2,8 @@ export default function Process({ t }) {
   const p = t.process;
   return (
     <section id="process" className="process">
-      <div className="wrap process-grid">
-        <div className="process-intro">
+      <div className="wrap process-inner">
+        <div className="process-head">
           <h2>{p.title}</h2>
           <a href="#contact" className="btn-primary">{t.hero.cta1}</a>
         </div>
