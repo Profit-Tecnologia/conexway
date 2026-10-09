@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600&family=Noto+Sans+SC:wght@500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<style>
+html,body{margin:0;height:100%;background:#F6F7F9;font-family:"IBM Plex Sans","Noto Sans SC",sans-serif;overflow:hidden}
+svg{display:block;width:100%;height:100%}
+.lbl{font-size:13px;font-weight:600;fill:#0B1F3A;paint-order:stroke;stroke:#F6F7F9;stroke-width:4px;stroke-linejoin:round}
+.hk{font-size:12px;font-weight:600;fill:#0E8C7A;paint-order:stroke;stroke:#F6F7F9;stroke-width:4px}
+</style></head>
+<body><svg id="m"></svg>
+<script>
+const L={
+ en:{CN:"China",VN:"Vietnam",BD:"Bangladesh",IN:"India",HK:"Hong Kong"},
+ pt:{CN:"China",VN:"Vietnã",BD:"Bangladesh",IN:"Índia",HK:"Hong Kong"},
+ zh:{CN:"中国",VN:"越南",BD:"孟加拉国",IN:"印度",HK:"香港"},
+ es:{CN:"China",VN:"Vietnam",BD:"Bangladés",IN:"India",HK:"Hong Kong"}};
+const lang=L[new URLSearchParams(location.search).get("lang")]?new URLSearchParams(location.search).get("lang"):"pt";
+const ORIG={"156":["CN",[104,34]],"704":["VN",[106.5,15.5]],"050":["BD",[90.3,23.8]],"356":["IN",[79,22]]};
+const HK=[114.17,22.32];
+const svg=d3.select("#m");let HL=null;
+function paint(){svg.selectAll("path.ctry").transition().duration(200).attr("fill",d=>!ORIG[d.id]?"#DCE2EA":(HL&&ORIG[d.id][0]===HL?"#2BC4A8":(HL?"#4A6390":"#13315C")));
+  svg.selectAll("text.lbl").transition().duration(200).attr("fill",function(){return HL&&this.dataset.c===HL?"#0E8C7A":"#0B1F3A";});}
+addEventListener("message",e=>{if(e.data&&"cvxHighlight" in e.data){HL=e.data.cvxHighlight;paint();}});
+fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json").then(r=>r.json()).then(topo=>{
+  const all=topojson.feature(topo,topo.objects.countries);
+  function draw(){
+    const W=innerWidth,H=innerHeight; svg.attr("viewBox",`0 0 ${W} ${H}`).selectAll("*").remove();
+    const focus={type:"FeatureCollection",features:all.features.filter(f=>ORIG[f.id])};
+    const proj=d3.geoMercator().fitExtent([[40,40],[W-40,H-40]],focus);
+    const path=d3.geoPath(proj);
+    svg.append("g").selectAll("path").data(all.features).join("path").attr("class","ctry").attr("d",path)
+      .attr("fill",d=>ORIG[d.id]?"#13315C":"#DCE2EA").attr("stroke","#F6F7F9").attr("stroke-width",0.8);
+    const hk=proj(HK);
+    const g=svg.append("g");
+    Object.values(ORIG).forEach(([c,ll])=>{
+      if(c==="CN")return;
+      const p=proj(ll),mx=(p[0]+hk[0])/2,my=Math.min(p[1],hk[1])-Math.abs(p[0]-hk[0])*0.25;
+      g.append("path").attr("d",`M${p[0]},${p[1]} Q${mx},${my} ${hk[0]},${hk[1]}`).attr("fill","none").attr("stroke","#2BC4A8").attr("stroke-width",1.6).attr("stroke-dasharray","4 4");
+    });
+    Object.values(ORIG).forEach(([c,ll])=>{
+      const p=proj(ll);
+      g.append("circle").attr("cx",p[0]).attr("cy",p[1]).attr("r",4).attr("fill","#fff").attr("stroke","#13315C").attr("stroke-width",2);
+      g.append("text").attr("class","lbl").attr("data-c",c).attr("x",p[0]).attr("y",p[1]-10).attr("text-anchor","middle").text(L[lang][c]);
+    });
+    g.append("circle").attr("cx",hk[0]).attr("cy",hk[1]).attr("r",10).attr("fill","#2BC4A8").attr("opacity",0.25);
+    g.append("circle").attr("cx",hk[0]).attr("cy",hk[1]).attr("r",5).attr("fill","#2BC4A8").attr("stroke","#fff").attr("stroke-width",1.5);
+    g.append("text").attr("class","hk").attr("x",hk[0]+12).attr("y",hk[1]+16).text(L[lang].HK);
+  }
+  draw(); paint(); addEventListener("resize",()=>{draw();paint();});
+});
+</script></body></html>
