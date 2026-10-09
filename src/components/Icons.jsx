@@ -12,7 +12,7 @@ export function Logo({ size = 34, tile = false, stroke = "#fff", dot = "#2BC4A8"
 
 export function Chevron({ open }) {
   return (
-    <svg className={"chevron" + (open ? " open" : "")} width="24" height="24" viewBox="0 0 24 24" fill="#5A6B82" aria-hidden="true">
+    <svg className={"chevron" + (open ? " open" : "")} width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z" />
     </svg>
   );

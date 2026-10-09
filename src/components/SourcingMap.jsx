@@ -20,8 +20,8 @@ const focus = { type: "FeatureCollection", features: countries.filter((f) => ORI
 // China is the primary market; the other origins stay visible but secondary.
 function fillFor(id) {
   const o = ORIGINS[id];
-  if (!o) return "#DCE2EA";
-  return o[0] === "CN" ? "#13315C" : "#93A6C2";
+  if (!o) return "var(--map-land)";
+  return o[0] === "CN" ? "var(--map-focus)" : "var(--map-dim)";
 }
 
 export default function SourcingMap({ lang }) {
@@ -62,7 +62,7 @@ export default function SourcingMap({ lang }) {
         <svg className="map-svg" viewBox={`0 0 ${size.W} ${size.H}`} role="img" aria-label="Map">
           <g>
             {geo.shapes.map((s) => (
-              <path key={s.key} className="ctry" d={s.d} fill={fillFor(s.id)} stroke="#F6F7F9" strokeWidth={0.8} />
+              <path key={s.key} className="ctry" d={s.d} style={{ fill: fillFor(s.id) }} stroke="var(--sch)" strokeWidth={0.8} />
             ))}
           </g>
           <g>
@@ -70,7 +70,7 @@ export default function SourcingMap({ lang }) {
               arc && <path key={"a" + code} d={arc} fill="none" stroke="#2BC4A8" strokeWidth={1.6} strokeDasharray="4 4" />
             )}
             {geo.points.map(({ code, p }) => [
-              <circle key={"c" + code} cx={p[0]} cy={p[1]} r={code === "CN" ? 6 : 4} fill="#fff" stroke="#13315C" strokeWidth={2} />,
+              <circle key={"c" + code} cx={p[0]} cy={p[1]} r={code === "CN" ? 6 : 4} style={{ fill: "var(--surface)", stroke: "var(--map-focus)" }} strokeWidth={2} />,
               <text key={"t" + code} className={"map-lbl" + (code === "CN" ? " main" : "")} x={p[0]} y={p[1] - 10} textAnchor="middle">
                 {names[code]}
               </text>,
