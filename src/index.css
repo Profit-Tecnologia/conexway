@@ -38,6 +38,7 @@ section[id]{scroll-margin-top:76px}
 .brand{display:flex;align-items:center;gap:12px;color:var(--on)}
 .brand:hover{color:var(--on)}
 .logo{display:block;flex:none}
+.logo-mark{display:none}
 .spacer{flex:1}
 .nav{display:flex;gap:4px}
 .nav a{color:var(--onv);padding:10px 16px;border-radius:100px;font-size:14px;font-weight:500}
@@ -54,7 +55,7 @@ section[id]{scroll-margin-top:76px}
 .mobile-menu a:hover{background:var(--sc)}
 @media (max-width:999px){.nav{display:none}.menu-btn{display:grid}}
 @media (min-width:1000px){.mobile-menu{display:none}}
-@media (max-width:520px){.header-bar{gap:8px}.logo-header{width:34px}.langs button{min-width:36px;padding:8px 9px}}
+@media (max-width:520px){.header-bar{gap:8px}.logo-full{display:none}.logo-mark{display:block}.langs button{min-width:36px;padding:8px 9px}}
 
 /* Hero */
 .hero{position:relative;overflow:hidden;width:100%;background:var(--hero-bg);color:#FFFFFF}
