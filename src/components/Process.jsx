@@ -1,3 +1,5 @@
+const ICONS = ["forum", "travel_explore", "handshake", "verified"];
+
 export default function Process({ t }) {
   const p = t.process;
   return (
@@ -10,9 +12,12 @@ export default function Process({ t }) {
         <ol className="steps">
           {p.steps.map((st, i) => (
             <li key={i} className={"step tone-" + i}>
-              <span className="step-num">0{i + 1}</span>
-              <div className="step-t">{st.t}</div>
-              <div className="step-d">{st.d}</div>
+              <div className="step-top">
+                <span className="step-icon msr" aria-hidden="true">{ICONS[i]}</span>
+                <span className="step-n">0{i + 1}</span>
+              </div>
+              <h3 className="step-t">{st.t}</h3>
+              <p className="step-d">{st.d}</p>
             </li>
           ))}
         </ol>
