@@ -6,11 +6,8 @@ export default function Footer({ t }) {
     <footer className="footer">
       <div className="wrap">
         <div className="footer-brand">
-          <Logo size={30} />
-          <div className="col" style={{ gap: 2 }}>
-            <span className="footer-name">CONVEXWAY</span>
-            <span className="footer-tag">{f.tagline}</span>
-          </div>
+          <Logo height={30} />
+          <span className="footer-tag">{f.tagline}</span>
         </div>
         <div className="footer-links">
           <span>{f.rights}</span>
