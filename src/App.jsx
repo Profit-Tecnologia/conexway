@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { T, LANGS } from "./i18n";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import About, { Audience } from "./components/About";
 import Sourcing from "./components/Sourcing";
 import Services from "./components/Services";
 import Process from "./components/Process";
@@ -10,8 +9,6 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 const DEFAULT_LANG = "pt";
-// "markets" -> "Connecting markets…", "borders" -> "Your business, without borders."
-const HEADLINE = "markets";
 
 const store = {
   get(k) { try { return localStorage.getItem(k); } catch { return null; } },
@@ -78,12 +75,10 @@ export default function App() {
     <div className="page">
       <Header t={t} lang={lang} onLang={changeLang} theme={theme} onTheme={toggleTheme} />
       <main>
-        <Hero t={t} headline={HEADLINE} />
-        <Audience t={t} />
-        <About t={t} />
+        <Hero t={t} />
+        <Process t={t} />
         <Sourcing t={t} lang={lang} />
         <Services t={t} />
-        <Process t={t} />
         {/* key resets form errors when the language changes, like the original */}
         <Contact key={lang} t={t} lang={lang} onSent={onSent} />
       </main>

@@ -3,7 +3,7 @@ import { Logo } from "./Icons";
 export default function Footer({ t }) {
   const f = t.footer;
   return (
-    <footer id="privacy" className="footer">
+    <footer className="footer">
       <div className="wrap">
         <div className="footer-brand">
           <Logo size={30} />
@@ -14,8 +14,6 @@ export default function Footer({ t }) {
         </div>
         <div className="footer-links">
           <span>{f.rights}</span>
-          <a href="#privacy">{f.privacy}</a>
-          <a href="#privacy">{f.cookies}</a>
         </div>
       </div>
     </footer>
