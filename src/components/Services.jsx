@@ -8,13 +8,7 @@ export default function Services({ t }) {
   return (
     <section id="services">
       <div className="wrap section" style={{ gap: 48 }}>
-        <div className="services-head">
-          <div className="col" style={{ gap: 20, maxWidth: 640 }}>
-            <div className="eyebrow">{s.eyebrow}</div>
-            <h2 className="h2" style={{ textWrap: "initial" }}>{s.title}</h2>
-          </div>
-          <p className="muted" style={{ margin: 0, maxWidth: 360 }}>{s.intro}</p>
-        </div>
+        <h2 className="h2">{s.title}</h2>
         <div className="services-anim"><ServicesAnimation /></div>
         <div className="services-grid">
           {s.items.map((it, i) => (

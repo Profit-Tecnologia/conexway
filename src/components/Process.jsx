@@ -4,10 +4,8 @@ export default function Process({ t }) {
     <section id="process" className="process">
       <div className="wrap process-grid">
         <div className="process-intro">
-          <div className="eyebrow-dark">{p.eyebrow}</div>
           <h2>{p.title}</h2>
-          <p className="process-note">{p.note}</p>
-          <a href="#contact" className="btn-primary">{t.hero.cta2}</a>
+          <a href="#contact" className="btn-primary">{t.hero.cta1}</a>
         </div>
         <ol className="steps">
           {p.steps.map((st, i) => (
