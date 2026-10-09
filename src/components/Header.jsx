@@ -9,8 +9,7 @@ export default function Header({ t, lang, onLang, theme, onTheme }) {
     <header className="header">
       <div className="wrap header-bar">
         <a href="#home" className="brand">
-          <Logo tile />
-          <span>CONVEXWAY</span>
+          <Logo className="logo-header" />
         </a>
         <div className="spacer" />
         <nav className="nav">
