@@ -1,4 +1,3 @@
-import { Logo } from "./Icons";
 
 // Route artwork: lines converging into a hub, then fanning out. [y, opacity, width, duration, delay]
 const HERO_IN = [
@@ -56,7 +55,6 @@ export default function Hero({ t }) {
       <HeroArt />
       <div className="wrap hero-inner">
         <div className="hero-copy">
-          <Logo variant="text" height={32} className="logo-hero" />
           <h1>{first}{second && <span className="hl">{second}</span>}</h1>
           <p className="hero-sub">{h.sub}</p>
           <div className="hero-ctas">

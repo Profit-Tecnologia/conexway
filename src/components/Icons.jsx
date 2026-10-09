@@ -27,7 +27,8 @@ function Mark({ tile, routes }) {
     </>
   );
 }
-const Words = ({ fill }) => WORDMARK.map((d, i) => <path key={i} fill={fill} d={d} />);
+// "conve" + "x" take `fill`; "way" (last three letters) is always teal.
+const Words = ({ fill }) => WORDMARK.map((d, i) => <path key={i} fill={i >= 6 ? TEAL : fill} d={d} />);
 
 // variant: "light" (positivo), "dark" (white symbol on a navy plate) or "text" (white wordmark only).
 // `height` is the symbol height; markOnly drops the wordmark (compact header on mobile).
