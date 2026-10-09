@@ -26,7 +26,7 @@ en: {
     includeT:"Helpful to include",include:["Product and specifications","Estimated volumes","Target market","Timeline"],
     name:"Name",company:"Company",email:"Business email",country:"Country",lang:"Preferred language",category:"Product category or sourcing requirement",origin:"Potential sourcing country (if known)",message:"Message",
     originOpts:["Not sure yet","China","Vietnam","Bangladesh","India","Other"],submit:"Send inquiry",
-    privacy:"Your details are used only to respond to your inquiry and are never shared with third parties.",required:"This field is required.",emailErr:"Please enter a valid business email.",success:"Thank you — your inquiry has been received."},
+    privacy:"Your details are used only to respond to your inquiry and are never shared with third parties.",required:"This field is required.",emailErr:"Please enter a valid business email.",success:"Thank you — your inquiry has been received.",sending:"Sending…",sendErr:"We could not send your inquiry. Please try again or write to"},
   footer:{tagline:"Connecting markets. Simplifying business.",rights:"© 2026 CONVEXWAY · Hong Kong (planned)",privacy:"Privacy Policy",cookies:"Cookies"},
   cookie:{text:"We use only essential cookies to run this website.",ok:"OK"}
 },
@@ -57,7 +57,7 @@ pt: {
     includeT:"Informações úteis",include:["Produto e especificações","Volumes estimados","Mercado de destino","Prazo"],
     name:"Nome",company:"Empresa",email:"E-mail corporativo",country:"País",lang:"Idioma de preferência",category:"Categoria de produto ou necessidade de sourcing",origin:"País de origem desejado (se souber)",message:"Mensagem",
     originOpts:["Ainda não sei","China","Vietnã","Bangladesh","Índia","Outro"],submit:"Enviar consulta",
-    privacy:"Seus dados são usados apenas para responder à sua consulta e nunca são compartilhados com terceiros.",required:"Campo obrigatório.",emailErr:"Informe um e-mail corporativo válido.",success:"Obrigado — recebemos sua consulta."},
+    privacy:"Seus dados são usados apenas para responder à sua consulta e nunca são compartilhados com terceiros.",required:"Campo obrigatório.",emailErr:"Informe um e-mail corporativo válido.",success:"Obrigado — recebemos sua consulta.",sending:"Enviando…",sendErr:"Não foi possível enviar sua consulta. Tente novamente ou escreva para"},
   footer:{tagline:"Conectando mercados. Simplificando negócios.",rights:"© 2026 CONVEXWAY · Hong Kong (planejado)",privacy:"Política de Privacidade",cookies:"Cookies"},
   cookie:{text:"Usamos apenas cookies essenciais para o funcionamento do site.",ok:"OK"}
 },
@@ -88,7 +88,7 @@ zh: {
     includeT:"建议提供的信息",include:["产品及规格","预计数量","目标市场","时间安排"],
     name:"姓名",company:"公司",email:"企业邮箱",country:"国家/地区",lang:"首选语言",category:"产品品类或采购需求",origin:"意向采购国家（如已确定）",message:"留言",
     originOpts:["尚未确定","中国","越南","孟加拉国","印度","其他"],submit:"提交咨询",
-    privacy:"您的信息仅用于回复本次咨询，绝不会提供给第三方。",required:"此项为必填项。",emailErr:"请输入有效的企业邮箱。",success:"感谢您的咨询，我们已收到。"},
+    privacy:"您的信息仅用于回复本次咨询，绝不会提供给第三方。",required:"此项为必填项。",emailErr:"请输入有效的企业邮箱。",success:"感谢您的咨询，我们已收到。",sending:"正在发送…",sendErr:"咨询发送失败，请重试或发送邮件至"},
   footer:{tagline:"连接市场，让商业更简单。",rights:"© 2026 CONVEXWAY · 香港（计划中）",privacy:"隐私政策",cookies:"Cookie 说明"},
   cookie:{text:"本网站仅使用必要的 Cookie 以保证正常运行。",ok:"好的"}
 },
@@ -119,7 +119,7 @@ es: {
     includeT:"Información útil",include:["Producto y especificaciones","Volúmenes estimados","Mercado de destino","Plazos"],
     name:"Nombre",company:"Empresa",email:"Correo corporativo",country:"País",lang:"Idioma preferido",category:"Categoría de producto o requisito de abastecimiento",origin:"País de origen deseado (si lo conoce)",message:"Mensaje",
     originOpts:["Aún no lo sé","China","Vietnam","Bangladés","India","Otro"],submit:"Enviar consulta",
-    privacy:"Sus datos se utilizan solo para responder a su consulta y nunca se comparten con terceros.",required:"Este campo es obligatorio.",emailErr:"Ingrese un correo corporativo válido.",success:"Gracias. Hemos recibido su consulta."},
+    privacy:"Sus datos se utilizan solo para responder a su consulta y nunca se comparten con terceros.",required:"Este campo es obligatorio.",emailErr:"Ingrese un correo corporativo válido.",success:"Gracias. Hemos recibido su consulta.",sending:"Enviando…",sendErr:"No pudimos enviar su consulta. Inténtelo de nuevo o escriba a"},
   footer:{tagline:"Conectando mercados. Simplificando negocios.",rights:"© 2026 CONVEXWAY · Hong Kong (previsto)",privacy:"Política de Privacidad",cookies:"Cookies"},
   cookie:{text:"Solo utilizamos cookies esenciales para el funcionamiento del sitio.",ok:"OK"}
 }};

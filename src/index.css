@@ -195,3 +195,6 @@ section[id]{scroll-margin-top:68px}
 .map-lbl{font-size:13px;font-weight:600;fill:#0B1F3A;paint-order:stroke;stroke:#F6F7F9;stroke-width:4px;stroke-linejoin:round;transition:fill 200ms}
 .map-lbl.on{fill:#0E8C7A}
 .map-hk{font-size:12px;font-weight:600;fill:#0E8C7A;paint-order:stroke;stroke:#F6F7F9;stroke-width:4px}
+.submit:disabled{opacity:0.7;cursor:wait}
+.send-error{margin:0;font-size:14px;line-height:1.5;color:#D32F2F}
+.send-error a{color:inherit;text-decoration:underline}

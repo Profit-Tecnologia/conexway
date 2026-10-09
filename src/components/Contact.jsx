@@ -19,6 +19,8 @@ export default function Contact({ t, lang, onSent }) {
   const c = t.contact;
   const [form, setForm] = useState(EMPTY);
   const [errors, setErrors] = useState({});
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
 
   const label = (k) => c[k] + (REQUIRED.includes(k) ? " *" : "");
   const bind = (k) => ({
@@ -36,15 +38,40 @@ export default function Contact({ t, lang, onSent }) {
     </Field>
   );
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
+    if (sending) return;
     const errs = {};
     REQUIRED.forEach((k) => { if (!form[k].trim()) errs[k] = c.required; });
     if (form.email.trim() && !EMAIL_RE.test(form.email.trim())) errs.email = c.emailErr;
     if (Object.keys(errs).length) { setErrors(errs); return; }
-    setForm(EMPTY);
-    setErrors({});
-    onSent();
+
+    // Send readable values (language name, origin label) so the email needs no lookup.
+    const langName = LANGS.find((l) => l[0] === (form.lang || lang))[3];
+    const payload = {
+      ...form,
+      lang: langName,
+      origin: c.originOpts[Number(form.origin || 0)],
+      _honey: e.currentTarget.elements._honey.value,
+    };
+    setSending(true);
+    setSendError(false);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error(data.error || res.statusText);
+      setForm(EMPTY);
+      setErrors({});
+      onSent();
+    } catch {
+      setSendError(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -82,9 +109,19 @@ export default function Contact({ t, lang, onSent }) {
           <Field id="cf-message" label={label("message")} error={errors.message || ""} full>
             <textarea rows={5} {...bind("message")} />
           </Field>
+          {/* Honeypot: hidden from people, bots tend to fill it */}
+          <input type="text" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true"
+            style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }} />
           <div className="form-foot">
             <p className="privacy">{c.privacy} <a href="#privacy">{t.footer.privacy}</a></p>
-            <button type="submit" className="submit">{c.submit}</button>
+            {sendError && (
+              <p className="send-error" role="alert">
+                {c.sendErr} <a href="mailto:customerdesk@convexway.com">customerdesk@convexway.com</a>
+              </p>
+            )}
+            <button type="submit" className="submit" disabled={sending} aria-busy={sending}>
+              {sending ? c.sending : c.submit}
+            </button>
           </div>
         </form>
       </div>
