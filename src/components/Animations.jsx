@@ -12,49 +12,6 @@ const svgProps = (W, H) => ({
   "aria-hidden": true,
 });
 
-const ABOUT = (() => {
-  const rnd = seeded(7);
-  const W = 2000, H = 880, hx = 1180, hy = 440, inc = [], out = [];
-  for (let i = 0; i < 30; i++) {
-    const y = (H * (i + 0.5)) / 30 + (rnd() - 0.5) * 20;
-    inc.push({
-      d: `M-20,${y.toFixed(1)} C${hx * 0.55},${y.toFixed(1)} ${hx * 0.6},${hy} ${hx},${hy}`,
-      o: 0.18 + rnd() * 0.3,
-      w: 1 + rnd() * 1.6,
-      dur: (3 + rnd() * 4).toFixed(2),
-      del: (-rnd() * 6).toFixed(2),
-    });
-  }
-  for (let i = 0; i < 5; i++) {
-    const y = hy + (i - 2) * H * 0.16;
-    out.push({ d: `M${hx},${hy} C${hx + (W - hx) * 0.4},${hy} ${hx + (W - hx) * 0.5},${y} ${W + 20},${y}`, main: i === 2 });
-  }
-  return { W, H, hx, hy, inc, out };
-})();
-
-export function AboutAnimation() {
-  const A = ABOUT;
-  return (
-    <svg {...svgProps(A.W, A.H)}>
-      {A.inc.map((p, i) => [
-        <path key={"b" + i} d={p.d} fill="none" stroke="#8FA6C8" strokeOpacity={p.o} strokeWidth={p.w} />,
-        <path key={"f" + i} d={p.d} fill="none" stroke="#C9D6EA" strokeWidth={p.w + 0.6} strokeLinecap="round" strokeDasharray="40 360"
-          style={{ animation: `cvxFlow ${p.dur}s linear ${p.del}s infinite` }} />,
-      ])}
-      {A.out.map((p, i) => [
-        <path key={"o" + i} d={p.d} fill="none" stroke="#2BC4A8" strokeOpacity={p.main ? 1 : 0.4} strokeWidth={p.main ? 4 : 2} />,
-        <path key={"of" + i} d={p.d} fill="none" stroke="#B8F2E6" strokeWidth={p.main ? 5 : 2.5} strokeLinecap="round" strokeDasharray="60 340"
-          style={{ animation: `cvxFlow ${p.main ? 2.4 : 3.4}s linear ${-i * 0.7}s infinite` }} />,
-      ])}
-      {[0, -1.2].map((d, i) => (
-        <circle key={"p" + i} cx={A.hx} cy={A.hy} r={22} fill="#2BC4A8"
-          style={{ transformOrigin: `${A.hx}px ${A.hy}px`, animation: `cvxPulse 2.4s ease-out ${d}s infinite` }} />
-      ))}
-      <circle cx={A.hx} cy={A.hy} r={12} fill="#2BC4A8" stroke="#0B1F3A" strokeWidth={3} />
-    </svg>
-  );
-}
-
 const SVC = (() => {
   const rnd = seeded(3);
   const nodes = [];
