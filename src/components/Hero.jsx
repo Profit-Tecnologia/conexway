@@ -4,11 +4,10 @@ export default function Hero({ t, headline }) {
   const h = t.hero;
   return (
     <section id="home" className="hero">
-      <div className="hero-top">
-        <img className="hero-bg" src="images/hero-routes.png" alt="" />
-        <div className="wrap hero-grid">
+      <div className="wrap hero-wrap">
+        <div className="hero-card">
           <div className="hero-copy">
-            <div className="eyebrow-dark">{h.eyebrow}</div>
+            <div className="eyebrow">{h.eyebrow}</div>
             <h1>{headline === "borders" ? h.h1b : h.h1a}</h1>
             <p className="hero-sub">{h.sub}</p>
             <div className="hero-ctas">
@@ -16,7 +15,9 @@ export default function Hero({ t, headline }) {
               <a href="#contact" className="btn-ghost">{h.cta2}</a>
             </div>
           </div>
-          <div className="hero-panel">
+          <div className="hero-visual">
+            <img className="hero-bg" src="images/hero-routes.png" alt="" />
+            <div className="hero-panel">
             <div className="panel-label">{h.originsLabel}</div>
             <div className="col" style={{ gap: 8 }}>
               {t.sourcing.countries.map((c) => (
@@ -40,11 +41,12 @@ export default function Hero({ t, headline }) {
               </div>
             </div>
             <div className="panel-caption">{h.caption}</div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="pillars-wrap">
-        <div className="wrap pillars">
+      <div className="wrap">
+        <div className="pillars">
           {h.pillars.map((p) => (
             <div key={p.t} className="col" style={{ gap: 8 }}>
               <div className="pillar-t">{p.t}</div>

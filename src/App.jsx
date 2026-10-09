@@ -48,11 +48,19 @@ export default function App() {
   const [lang, setLang] = useState(initialLang);
   const [showCookie, setShowCookie] = useState(() => !store.get("cvx_cookie"));
   const [sent, setSent] = useState(false);
+  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || "light");
   const sentTimer = useRef();
   const t = T[lang];
 
   useEffect(() => updateMeta(lang), [lang]);
   useEffect(() => () => clearTimeout(sentTimer.current), []);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.dataset.theme = next;
+    store.set("cvx_theme", next);
+  };
 
   const changeLang = (code) => {
     setLang(code);
@@ -68,7 +76,7 @@ export default function App() {
 
   return (
     <div className="page">
-      <Header t={t} lang={lang} onLang={changeLang} />
+      <Header t={t} lang={lang} onLang={changeLang} theme={theme} onTheme={toggleTheme} />
       <main>
         <Hero t={t} headline={HEADLINE} />
         <Audience t={t} />

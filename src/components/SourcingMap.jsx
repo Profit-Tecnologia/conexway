@@ -19,9 +19,9 @@ const focus = { type: "FeatureCollection", features: countries.filter((f) => ORI
 
 function fillFor(id, highlight) {
   const o = ORIGINS[id];
-  if (!o) return "#DCE2EA";
-  if (!highlight) return "#13315C";
-  return o[0] === highlight ? "#2BC4A8" : "#4A6390";
+  if (!o) return "var(--map-land)";
+  if (!highlight) return "var(--map-focus)";
+  return o[0] === highlight ? "var(--teal)" : "var(--map-dim)";
 }
 
 export default function SourcingMap({ lang, highlight }) {
@@ -62,7 +62,7 @@ export default function SourcingMap({ lang, highlight }) {
         <svg className="map-svg" viewBox={`0 0 ${size.W} ${size.H}`} role="img" aria-label="Map">
           <g>
             {geo.shapes.map((s) => (
-              <path key={s.key} className="ctry" d={s.d} fill={fillFor(s.id, highlight)} stroke="#F6F7F9" strokeWidth={0.8} />
+              <path key={s.key} className="ctry" d={s.d} style={{ fill: fillFor(s.id, highlight) }} stroke="var(--sch)" strokeWidth={0.8} />
             ))}
           </g>
           <g>
@@ -70,7 +70,7 @@ export default function SourcingMap({ lang, highlight }) {
               arc && <path key={"a" + code} d={arc} fill="none" stroke="#2BC4A8" strokeWidth={1.6} strokeDasharray="4 4" />
             )}
             {geo.points.map(({ code, p }) => [
-              <circle key={"c" + code} cx={p[0]} cy={p[1]} r={4} fill="#fff" stroke="#13315C" strokeWidth={2} />,
+              <circle key={"c" + code} cx={p[0]} cy={p[1]} r={4} style={{ fill: "var(--surface)", stroke: "var(--map-focus)" }} strokeWidth={2} />,
               <text key={"t" + code} className={"map-lbl" + (highlight === code ? " on" : "")} x={p[0]} y={p[1] - 10} textAnchor="middle">
                 {names[code]}
               </text>,
